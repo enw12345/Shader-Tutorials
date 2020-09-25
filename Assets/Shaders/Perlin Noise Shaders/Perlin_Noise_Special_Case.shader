@@ -1,7 +1,8 @@
-﻿Shader "Tutorial/028_Perlin_Noise/3d_Perlin_Noise"
+﻿Shader "Tutorial/028_Perlin_Noise/Perlin_Noise_Special_Case"
 {
 	Properties{
-		_CellSize("Cell Size", Range(0, 1)) = 1
+		 _CellSize("Cell Size", Range(0, 1)) = 1
+		 _ScrollSpeed("Scroll Speed", Range(0, 1)) = 1
 	}
 		SubShader{
 			Tags{ "RenderType" = "Opaque" "Queue" = "Geometry"}
@@ -14,7 +15,7 @@
 			#include "Assets/Shaders/Random.cginc"
 
 			float _CellSize;
-			float _Jitter;
+			float _ScrollSpeed;
 
 			struct Input {
 				float3 worldPos;
@@ -64,11 +65,21 @@
 			}
 
 			void surf(Input i, inout SurfaceOutputStandard o) {
+				//vizualize lines where noise has the same height
 				float3 value = i.worldPos / _CellSize;
+				value.y += _Time.y * _ScrollSpeed;
 				//get noise and adjust it to be ~0-1 range
 				float noise = perlinNoise(value) + 0.5;
 
-				o.Albedo = noise;
+				noise = frac(noise * 6);
+
+				//create smooth lines from how much the noise changes in one pixle distance
+				float pixelNoiseChange = fwidth(noise);
+
+				float heightLine = smoothstep(1 - pixelNoiseChange, 1, noise);
+				heightLine += smoothstep(pixelNoiseChange, 0, noise);
+
+				o.Albedo = heightLine;
 			}
 			ENDCG
 	}

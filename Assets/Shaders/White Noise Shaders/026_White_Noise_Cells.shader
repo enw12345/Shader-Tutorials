@@ -9,7 +9,7 @@
 			CGPROGRAM
 			#pragma surface surf Standard fullforwardshadows
 			#pragma target 3.0
-			#include "Random.cginc"
+			#include "Assets/Shaders/Random.cginc"
 
 			float3 _CellSize;
 
