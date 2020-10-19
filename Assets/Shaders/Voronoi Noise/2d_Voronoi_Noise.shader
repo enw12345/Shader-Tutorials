@@ -43,6 +43,7 @@
 			void surf(Input i, inout SurfaceOutputStandard o) {
 				//divide the space into cells
 				float2 value = i.worldPos.xz / _CellSize;
+				//float2 value = _Time / _CellSize;
 				float noise = voronoiNoise(value);
 
 				o.Albedo = noise;
