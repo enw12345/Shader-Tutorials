@@ -10,7 +10,8 @@
 			Tags{ "RenderType" = "Opaque" "Queue" = "Geometry"}
 
 			CGPROGRAM
-			//the shader is a surface shader, meaning that it will be extended by unity in the background to have fancy lighting and other features
+			//the shader is a surface shader, meaning that it will be extended by unity in the 
+			//background to have fancy lighting and other features
 			//our surface shader function is called surf and we use our custom lighting model
 			//fullforwardshadows makes sure unity adds the shadow passes the shader might need
 			#pragma surface surf Custom fullforwardshadows
@@ -44,6 +45,7 @@
 
 				return col;
 			}
+
 			//the surface shader function which sets parameters the lighting function uses 
 			void surf(Input i, inout SurfaceOutput o) {
 				//sample and tint albedo texture
