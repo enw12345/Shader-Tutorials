@@ -50,15 +50,20 @@
         {
             //get the dot product betweeen the normal and the view direction
             float fresnel = dot(IN.worldNormal, IN.viewDir);
+
             //invert the fresnel so the big values are on the outside
             fresnel = saturate(1 - fresnel);
+
             //raise the fresnel value to the exponents power to be able to adjust it
             fresnel = pow(fresnel, _FresnelExponent);
+
             //combine the fresnel value with a color
             float3 fresnelColor = fresnel * _FresnelColor;
+
             // Albedo comes from a texture tinted by color
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
             o.Albedo = c.rgb;
+
             // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;

@@ -13,7 +13,7 @@
 			CGPROGRAM
 			#pragma surface surf Standard fullforwardshadows
 			#pragma target 3.0
-			#include "Random.cginc"
+			#include "Assets/Shaders/Random.cginc"
 
 			struct Input {
 			float3 worldPos;
